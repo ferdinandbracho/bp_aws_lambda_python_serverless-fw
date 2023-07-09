@@ -3,7 +3,6 @@ frameworkVersion: '3'
 
 provider:
   name: aws
-  profile: trxbiz-deploy
   runtime: python3.9
 
 functions:

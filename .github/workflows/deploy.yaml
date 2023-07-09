@@ -1,0 +1,29 @@
+name: Deploy AWS Lambda
+
+on:
+  push:
+    branches:
+      - main  # Replace with your desired branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install Serverless Framework and required plugins
+        run: make set-deploy
+
+      - name: Deploy AWS Lambda
+        env:
+          AWS_ACCESS_KEY_ID : ${{ secrets.TRX_BIZ_AWS_DEV_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY : ${{ secrets.TRX_BIZ_AWS_DEV_SECRET_ACCESS_KEY }}
+        run: |
+          serverless deploy  # Customize with your Serverless Framework deploy command
