@@ -13,7 +13,7 @@ Use this template as a starting point to quickly set up a robust and scalable AW
 - Makefile to initialize the project: The repository includes a Makefile that simplifies the project initialization process. By running the make init command
 - Pre-commit framework with MyPy and ruff: The repository is configured with a pre-commit framework that enforces code formatting and strict typing checks using MyPy and ruff.
 - Initial serverless.yml configuration: The repository includes an initial serverless.yml file that provides a basic configuration for deploying the Lambda function exposed through the AWS HTTP API Gateway.
-- GitHub Actions workflow integration: The workflow can be customized. Currently is set to deploying the Lambda function when push changes on main.
+- GitHub [Actions workflow](.github/workflows/deploy.yaml) integration: The workflow can be customized. Currently is set to deploying the Lambda function when push changes on main.
 
 ## Usage
 - Init project:
@@ -34,7 +34,34 @@ _*NOTE: The Serverless Framework assumes that you have the [AWS CLI](https://doc
 
 The initial [serverless.yml](serverless.yml) use the default AWS CLI profile related to an IAM user with sufficient privileges to interact with Lambda and S3 services. Adjust this profile according to your needs.
 
+## Environment Variables
+**Local Development**
+- Create a .env file in the root directory of your project.
+- Add the necessary environment variables to the .env file in the format KEY=VALUE. Adjust the [config.py](config.py) file to insert these variables into the config class instance.
+Example .env file:
+```txt
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=myuser
+DB_PASSWORD=mypassword
+```
 
+**Deployed**
+- Create the required environment variables or secrets in GitHub repository
+- In the [github-actions workflow file](.github/workflows/deploy.yaml), locate the "Deploy AWS Lambda" step.
+- Insert the environment variables or secrets into the workflow step, providing the necessary values.
+Example workflow step:
+```yaml
+- name: Deploy AWS Lambda
+  env:
+    DB_HOST: ${{ secrets.DB_HOST }}
+    DB_PORT: ${{ secrets.DB_PORT }}
+    DB_USER: ${{ secrets.DB_USER }}
+    DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+  run: |
+    # Add your deployment script here
+```
+Create github-actions secrets/variables and insert in  in the "Deploy AWS Lambda" step
 ## Deployment
 To interact with deployment, removal, and redeployment, use the [serverless CLI ](https://www.serverless.com/framework/docs/providers/aws/cli-reference)
 

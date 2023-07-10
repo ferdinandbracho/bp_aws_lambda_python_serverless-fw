@@ -25,5 +25,6 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID : ${{ secrets.TRX_BIZ_AWS_DEV_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY : ${{ secrets.TRX_BIZ_AWS_DEV_SECRET_ACCESS_KEY }}
+          # Add others needed environment variables
         run: |
           serverless deploy  # Customize with your Serverless Framework deploy command
