@@ -2,13 +2,19 @@ import json
 
 from requests import get
 
+from config import config
+
 
 def initial_function(event, context):
     """
     initial function
     This initial function use requests package to get dummy users.
 
-    Return dummy message, event object and requested dummy users
+    Return
+        - Dummy message
+        - Event object
+        - Requested dummy users
+        - Config object
 
     Modify this to fit your needs!
 
@@ -19,7 +25,8 @@ def initial_function(event, context):
     body = {
         'message': 'This is a message from lambda deployed using serverless',
         'input': event,
-        'dummy_users': dummy_users.text
+        'dummy_users': dummy_users.text,
+        'env': config.__dict__
     }
 
     response = {

@@ -22,6 +22,9 @@ node_modules
 package.json
 package-lock.json
 venv
+.env
+.mypy_cache
+.ruff_cache
 
 # Serverless directories
 .serverless
