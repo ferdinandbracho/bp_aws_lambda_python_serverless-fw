@@ -1,6 +1,6 @@
 init:
-	python -m venv venv
-	source venv/bin/activate
+	python -m venv venv && \
+	. venv/bin/activate && \
 	pip install --no-cache-dir --upgrade -r requirements.txt
 	pre-commit install
 	npm install -g serverless
