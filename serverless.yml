@@ -4,9 +4,13 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: python3.9
+  environment:
+    DB_HOST: ${env:DB_HOST}
+    DB_PORT: ${env:DB_PORT}
+    DB_USER: ${env:DB_USER}
 
 functions:
-  test:
+  function:
     handler: handler.initial_function
     events:
       - httpApi:

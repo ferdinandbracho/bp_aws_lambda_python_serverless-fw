@@ -4,12 +4,12 @@ import pathlib
 
 from dotenv import load_dotenv
 
-"""
-Example config project class, use to load env and others configuration.
-"""
-
 
 class Config:
+    """
+    Config project class, use to load env and others configuration.
+
+    """
     logger = logging.getLogger()
 
     def __init__(self):

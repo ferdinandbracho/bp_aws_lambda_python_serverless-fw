@@ -6,3 +6,8 @@ init:
 	npm install -g serverless
 	sls plugin install -n serverless-python-requirements
 	npm install serverless-offline --save-dev
+
+set-deploy:
+	npm install -g serverless
+	sls plugin install -n serverless-python-requirements
+	npm install serverless-offline --save-dev
