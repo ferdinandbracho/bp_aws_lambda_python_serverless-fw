@@ -1,7 +1,13 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
 # Distribution / packaging
-.Python
-.git
-env/
+.Python  # This was in original, keeping if specific, otherwise can be removed
 build/
 develop-eggs/
 dist/
@@ -13,25 +19,86 @@ lib64/
 parts/
 sdist/
 var/
+wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-__pycache__
-*/__pycache__
-node_modules
-package.json
-package-lock.json
-venv
-.env
-.mypy_cache
-.ruff_cache
-.venv
-requirements.txt
 
-# Serverless directories
-.serverless
+# PyInstaller
+*.manifest
+*.spec
 
-# Pytest cache
-.pytest_cache
-pytest.ini
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
 htmlcov/
+.coverage
+.coverage.*_tmp
+.pytest_cache
+
+# Translations
+*.mo
+*.pot
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# Python virtualenv
+.venv/
+venv/
+env/
+
+# Pyenv
+.python-version
+
+# mypy, ruff and other linter caches
+.mypy_cache/
+.ruff_cache/
+.dmypy.json
+dmypy.json
+
+# AWS SAM
+.aws-sam/
+
+# Serverless Framework
+.serverless/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs and editors
+.idea/
+.vscode/
+*.project
+*.pydevproject
+*.sublime-project
+*.sublime-workspace
+
+# OS-generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Miscellaneous
+*.bak
+*.swp
+*~
+# Ignore bundler config if using serverless-webpack or similar that generates it
+.webpack/
+
+# Environment variables (ensure .env.example is tracked)
+.env
+.env.*
+!.env.example
