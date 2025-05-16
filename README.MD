@@ -1,8 +1,8 @@
 # AWS Lambda Python Boiler Plate
 
-This template repository serves as a starting point for developing [AWS Lambda](https://aws.amazon.com/lambda/) functions in [Python 3.9](https://www.python.org/downloads/release/python-390/). It offers a well-structured boilerplate setup, complete with essential configurations, making it easier to kickstart your Lambda-based projects and streamline your serverless development process.
+This template repository serves as a starting point for developing [AWS Lambda](https://aws.amazon.com/lambda/) functions in [Python 3.12](https://www.python.org/downloads/release/python-3120/). It offers a well-structured boilerplate setup, complete with essential configurations, making it easier to kickstart your Lambda-based projects and streamline your serverless development process.
 
-It includes a [pre-commit](https://pre-commit.com/) framework configured with [mypy](https://mypy.readthedocs.io/en/stable/index.html) and [ruff](https://beta.ruff.rs/docs/) to ensure consistent code formatting and strict typing.aws lambda
+It includes a [pre-commit](https://pre-commit.com/) framework configured with [mypy](https://mypy.readthedocs.io/en/stable/index.html) and [ruff](https://beta.ruff.rs/docs/) to ensure consistent code formatting and strict typing. Dependencies are managed using [uv](https://github.com/astral-sh/uv) and defined in `pyproject.toml`.
 
 Use this template as a starting point to quickly set up a robust and scalable AWS Python Lambda function.
 
@@ -23,7 +23,8 @@ Use this template as a starting point to quickly set up a robust and scalable AW
 ### Required
 
 - Node 18 or higher
-- Python 3.9
+- Python 3.12
+- [uv](https://github.com/astral-sh/uv) (Python package installer, can be installed via `pip install uv` or `curl -LsSf https://astral.sh/uv/install.sh | sh`)
 
 ## Features
 
@@ -35,7 +36,17 @@ Use this template as a starting point to quickly set up a robust and scalable AW
 
 ## Usage
 
-1. **Init project:**
+1. **Install `uv`:**
+   If you don't have `uv` installed, you can install it via pip:
+   ```sh
+   pip install uv
+   ```
+   Or via curl (Linux/macOS):
+   ```sh
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   ```
+
+2. **Init project:**
 
 Position yourself in the project root directory and run the following command:
 
@@ -43,17 +54,29 @@ Position yourself in the project root directory and run the following command:
 make init
 ```
 
-- Create and activate a [virtual env](https://docs.python.org/3/library/venv.html#module-venv)
-- Install initial dependencies
-- Install pre-commit configuration
-- Install [Serverless framework](https://www.serverless.com/)
-- Install the required Serverless plugins:
-  - [Serverless offline](https://www.serverless.com/plugins/serverless-offline): To test and run locally.
-  - [Python requirements](https://www.serverless.com/plugins/serverless-python-requirements): To handle third-party dependencies.
+This command will:
+- Create a virtual environment named `.venv` using `uv`.
+- Install all Python dependencies (including development dependencies like `ruff`, `mypy`, `pre-commit`) defined in `pyproject.toml` into the `.venv` using `uv`.
+- Install pre-commit hooks.
+- Install [Serverless framework](https://www.serverless.com/) globally using `npm`.
+- Install the required Serverless plugins (`serverless-python-requirements`, `serverless-offline`).
+
+3. **Activate the virtual environment:**
+   After `make init` completes, activate the virtual environment:
+   ```sh
+   source .venv/bin/activate
+   ```
+
+### Makefile Commands
+
+This project uses a `Makefile` to streamline common development tasks. Here are the available commands:
+
+- **`make init`**: Initializes the project by setting up the virtual environment, installing dependencies (Python and Node.js for Serverless), and configuring pre-commit hooks. See detailed steps above.
+- **`make lint`**: Runs linters (`ruff`) and type checkers (`mypy`) to ensure code quality and consistency. (Described further under 'Linting and Type Checking')
+- **`make test`**: Executes the unit test suite using `pytest`. (Described further under 'Running Tests')
+- **`make set-deploy`**: Installs/re-installs Serverless Framework globally and the `serverless-python-requirements` plugin. This can be useful for CI/CD environments or to ensure a consistent Serverless setup.
 
 NOTE: The Serverless Framework assumes that you have the AWS CLI installed and configured.
-
-The initial `serverless.yml` uses the default AWS CLI profile related to an IAM user with sufficient privileges to interact with Lambda and S3 services. Adjust this profile according to your needs.
 
 ## Environment Variables
 
@@ -100,7 +123,7 @@ Example insertion:
 ```yml
 provider:
   name: aws
-  runtime: python3.9
+  runtime: python3.12
   environment:
     SERVICE_TRX_TRIPS: ${env:DB_HOST}
     SERVICE_TRX_CLIENTS: ${env:DB_PORT}
@@ -143,6 +166,26 @@ To run the serverless offline:
 sls offline
 ```
 
+## Linting and Type Checking
+
+To lint the code with Ruff and type check with MyPy:
+
+```bash
+make lint
+```
+
+### Running Tests
+
+This project uses `pytest` for unit testing. Tests are located in the `tests/` directory.
+
+To run the tests:
+
+```bash
+make test
+```
+
+This command will execute `pytest` using `uv run` and display the test results, including code coverage information as configured in `pytest.ini`.
+
 ## Documentation
 
 Please ensure you update this README after implementing an instance of this template. Here are the recommended steps to follow:
@@ -152,7 +195,7 @@ Please ensure you update this README after implementing an instance of this temp
 In your README's "Introduction and/or Overview" section (or similar), include the following information:
 
 ```markdown
-The Lambda function is built using Python 3.9 and is based on the [Core Lambda Template](https://github.com/ferdinandbracho/bp_aws_lambda_python_serverless-fw). For comprehensive technical details, instructions on how to run, deploy, and any other related considerations, please refer to the documentation provided in the [template repository](https://github.com/ferdinandbracho/bp_aws_lambda_python_serverless-fw).
+The Lambda function is built using Python 3.12 and is based on the [Core Lambda Template](https://github.com/ferdinandbracho/bp_aws_lambda_python_serverless-fw). For comprehensive technical details, instructions on how to run, deploy, and any other related considerations, please refer to the documentation provided in the [template repository](https://github.com/ferdinandbracho/bp_aws_lambda_python_serverless-fw).
 ```
 ### 2 Installation and Prerequisites
 
