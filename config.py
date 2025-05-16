@@ -1,41 +1,35 @@
 import logging
-import os
-import pathlib
+from typing import Optional
 
-from dotenv import load_dotenv
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+# Initialize logger for this module
+logger = logging.getLogger(__name__)
 
 
-class Config:
+class Settings(BaseSettings):
     """
-    Config project class, use to load env and others configuration.
+    Configuration settings for the application.
 
+    Loaded from environment variables and/or a .env file.
+    Pydantic's BaseSettings handles loading and validation.
     """
-    logger = logging.getLogger()
+    APP_NAME: str = "MyServerlessApp"
+    LOG_LEVEL: str = "INFO"
+    # Default changed to match previous handler logic
+    DUMMY_API_URL: str = "https://jsonplaceholder.typicode.com/users" 
 
-    def __init__(self):
-        self.load_env_file()
-        self.load_env_variables()
+    EXAMPLE_URL: Optional[str] = None
+    EXAMPLE_QUEUE_USERS: Optional[str] = None
+    EXAMPLE_ERROR: Optional[str] = None
 
-    def load_env_file(self) -> None:
-        try:
-            load_dotenv()
-            env_path = pathlib.Path('.') / '.env'
-            load_dotenv(dotenv_path=env_path)
-        except Exception as e:
-            logging.warning(f"Failed to load .env file: {e}")
+    # Pydantic V2 settings configuration
+    model_config = SettingsConfigDict(
+        env_file=".env", 
+        env_file_encoding='utf-8', 
+        extra='ignore'
+    )
 
-    def load_env_variables(self) -> None:
-        self.example_url = os.getenv("EXAMPLE_URL")
-        self.example_users = os.getenv("EXAMPLE_QUEUE_USERS")
-        self.example_errors = os.getenv("EXAMPLE_ERROR")
-
-        if not all([
-            self.example_url,
-            self.example_users,
-            self.example_errors
-        ]):
-            self.logger.warning("Incomplete example configuration."
-                                "Please check environment variables.")
-
-
-config = Config()
+# To use the settings in your application:
+# from config import Settings
+settings = Settings()

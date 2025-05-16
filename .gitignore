@@ -25,6 +25,13 @@ venv
 .env
 .mypy_cache
 .ruff_cache
+.venv
+requirements.txt
 
 # Serverless directories
 .serverless
+
+# Pytest cache
+.pytest_cache
+pytest.ini
+htmlcov/

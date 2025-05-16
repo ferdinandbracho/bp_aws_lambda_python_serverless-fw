@@ -3,11 +3,12 @@ frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: python3.9
+  runtime: python3.12
   environment:
     DB_HOST: ${env:DB_HOST}
     DB_PORT: ${env:DB_PORT}
     DB_USER: ${env:DB_USER}
+    POWERTOOLS_SERVICE_NAME: ${self:service} # For AWS Lambda Powertools
 
 functions:
   function:
@@ -23,5 +24,3 @@ plugins:
 custom:
   pythonRequirements:
     dockerizePip: non-linux
-
-

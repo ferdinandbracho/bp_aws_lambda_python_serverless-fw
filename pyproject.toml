@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aws-lambda-python-boilerplate"
+version = "0.1.0"
+description = "A boilerplate for AWS Lambda functions in Python using Serverless Framework, with uv, Ruff, and MyPy."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
+dependencies = [
+    "requests==2.32.0",
+    "python-dotenv==1.0.1",
+    "aws-lambda-powertools>=2.0.0", # Using a version constraint for Powertools
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit==3.7.0",
+    "ruff==0.4.3",
+    "mypy==1.10.0",
+    "pytest>=7.0.0",
+    "pytest-mock>=3.0.0",
+]
+
+[project.urls]
+Repository = "https://github.com/ferdinandbracho/bp_aws_lambda_python_serverless-fw"
+
+[tool.ruff]
+select = ["E", "F", "I"]
+ignore = []
+line-length = 80
+fix = true
+# Ruff's default excludes are usually sufficient and cover .git, .ruff_cache, .venv, venv, build, dist, node_modules etc.
+# We will use extend-exclude for items from the original ruff.toml that might not be standard or to be absolutely sure.
+extend-exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".svn",
+    ".tox",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+]
+# target-version = "py312" # Can be set explicitly if needed, else inferred
