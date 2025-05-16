@@ -3,7 +3,7 @@ name: Deploy AWS Lambda
 on:
   push:
     branches:
-      - main  # Replace with your desired branch name
+      - main  # Or your primary development/deployment branch
 
 jobs:
   deploy:
@@ -11,20 +11,47 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
         with:
-          python-version: 3.9
+          python-version: '3.12'
 
-      - name: Install Serverless Framework and required plugins
-        run: make set-deploy
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Or your preferred LTS version like 18
+
+      - name: Install uv (Python package manager)
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+        # Or if pip is available and uv is on PyPI and you prefer pip for this:
+        # run: pip install uv
+
+      - name: Initialize project and install dependencies
+        run: make init
+        # This make init should ideally handle npm install for serverless and plugins
+        # and uv pip sync for python deps.
+
+      - name: Lint code
+        run: make lint
+
+      - name: Run tests
+        run: make test
+
+      # The 'make set-deploy' installs serverless globally and plugins.
+      # 'make init' might already cover this if updated, or it can be separate.
+      # If 'make init' covers npm installs, this might be redundant or simplified.
+      - name: Install/Ensure Serverless Framework and plugins
+        run: make set-deploy 
 
       - name: Deploy AWS Lambda
         env:
-          AWS_ACCESS_KEY_ID : ${{ secrets.TRX_BIZ_AWS_DEV_ACCESS_KEY }}
-          AWS_SECRET_ACCESS_KEY : ${{ secrets.TRX_BIZ_AWS_DEV_SECRET_ACCESS_KEY }}
-          # Add others needed environment variables
+          AWS_ACCESS_KEY_ID: ${{ secrets.TRX_BIZ_AWS_DEV_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.TRX_BIZ_AWS_DEV_SECRET_ACCESS_KEY }}
+          # Ensure POWERTOOLS_SERVICE_NAME is set if you rely on it for Powertools
+          # POWERTOOLS_SERVICE_NAME: YourServiceName # Can be set here or in serverless.yml
         run: |
-          serverless deploy  # Customize with your Serverless Framework deploy command
+          serverless deploy --stage prod # Example: specify stage, or remove if not needed
