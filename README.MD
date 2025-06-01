@@ -1,5 +1,7 @@
 # AWS Lambda Python Boiler Plate
 
+[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/) [![Serverless Framework](https://img.shields.io/badge/serverless-3.0+-FD5750.svg)](https://www.serverless.com/) [![AWS Lambda Powertools](https://img.shields.io/badge/powertools-1.32-FF9900.svg)](https://awslabs.github.io/aws-lambda-powertools-python/latest/)
+
 This template repository serves as a starting point for developing [AWS Lambda](https://aws.amazon.com/lambda/) functions in [Python 3.12](https://www.python.org/downloads/release/python-3120/). It offers a well-structured boilerplate setup, complete with essential configurations, making it easier to kickstart your Lambda-based projects and streamline your serverless development process.
 
 It includes a [pre-commit](https://pre-commit.com/) framework configured with [mypy](https://mypy.readthedocs.io/en/stable/index.html) and [ruff](https://beta.ruff.rs/docs/) to ensure consistent code formatting and strict typing. Dependencies are managed using [uv](https://github.com/astral-sh/uv) and defined in `pyproject.toml`.
