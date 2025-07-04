@@ -13,6 +13,7 @@ init:
 	@echo "Installing Serverless Framework and plugins globally and locally..."
 	npm install -g serverless
 	sls plugin install -n serverless-python-requirements
+	npm install serverless-uv-requirements --save-dev
 	npm install serverless-offline --save-dev
 
 lint:
@@ -28,4 +29,5 @@ test:
 set-deploy:
 	npm install -g serverless
 	sls plugin install -n serverless-python-requirements
+	npm install serverless-uv-requirements --save-dev
 	npm install serverless-offline --save-dev

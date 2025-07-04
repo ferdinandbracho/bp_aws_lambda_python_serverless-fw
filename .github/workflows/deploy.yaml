@@ -45,12 +45,12 @@ jobs:
       # 'make init' might already cover this if updated, or it can be separate.
       # If 'make init' covers npm installs, this might be redundant or simplified.
       - name: Install/Ensure Serverless Framework and plugins
-        run: make set-deploy 
+        run: make set-deploy
 
       - name: Deploy AWS Lambda
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.TRX_BIZ_AWS_DEV_ACCESS_KEY }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.TRX_BIZ_AWS_DEV_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_DEV_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_DEV_SECRET_ACCESS_KEY }}
           # Ensure POWERTOOLS_SERVICE_NAME is set if you rely on it for Powertools
           # POWERTOOLS_SERVICE_NAME: YourServiceName # Can be set here or in serverless.yml
         run: |

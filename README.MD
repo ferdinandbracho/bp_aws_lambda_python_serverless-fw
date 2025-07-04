@@ -33,6 +33,7 @@ Use this template as a starting point to quickly set up a robust and scalable AW
 - **Makefile to initialize the project:** The repository includes a Makefile that simplifies the project initialization process. By running the `make init` command, you can set up the project easily.
 - **Pre-commit framework with MyPy and ruff:** The repository is configured with a pre-commit framework that enforces code formatting and strict typing checks using MyPy and ruff. This helps maintain code quality and adhere to best practices.
 - **Initial serverless.yml configuration:** The repository includes an initial `serverless.yml` file that provides a basic configuration for deploying the Lambda function exposed through the AWS HTTP API Gateway.
+- **Automatic pyproject.toml to requirements.txt conversion:** Using the serverless-uv-requirements plugin, the project automatically converts your pyproject.toml dependencies to requirements.txt during deployment.
 - **GitHub Actions workflow integration:** The workflow can be customized. Currently, it is set to deploy the Lambda function when changes are pushed to the `main` branch.
 
 
@@ -61,7 +62,7 @@ This command will:
 - Install all Python dependencies (including development dependencies like `ruff`, `mypy`, `pre-commit`) defined in `pyproject.toml` into the `.venv` using `uv`.
 - Install pre-commit hooks.
 - Install [Serverless framework](https://www.serverless.com/) globally using `npm`.
-- Install the required Serverless plugins (`serverless-python-requirements`, `serverless-offline`).
+- Install the required Serverless plugins (`serverless-python-requirements`, `serverless-uv-requirements`, `serverless-offline`).
 
 3. **Activate the virtual environment:**
    After `make init` completes, activate the virtual environment:
@@ -76,7 +77,7 @@ This project uses a `Makefile` to streamline common development tasks. Here are 
 - **`make init`**: Initializes the project by setting up the virtual environment, installing dependencies (Python and Node.js for Serverless), and configuring pre-commit hooks. See detailed steps above.
 - **`make lint`**: Runs linters (`ruff`) and type checkers (`mypy`) to ensure code quality and consistency. (Described further under 'Linting and Type Checking')
 - **`make test`**: Executes the unit test suite using `pytest`. (Described further under 'Running Tests')
-- **`make set-deploy`**: Installs/re-installs Serverless Framework globally and the `serverless-python-requirements` plugin. This can be useful for CI/CD environments or to ensure a consistent Serverless setup.
+- **`make set-deploy`**: Installs/re-installs Serverless Framework globally and the required Serverless plugins (`serverless-python-requirements`, `serverless-uv-requirements`). This can be useful for CI/CD environments or to ensure a consistent Serverless setup.
 
 NOTE: The Serverless Framework assumes that you have the AWS CLI installed and configured.
 
