@@ -21,6 +21,8 @@ functions:
 plugins:
   - serverless-offline
   - serverless-python-requirements
+  - serverless-uv-requirements
 custom:
   pythonRequirements:
     dockerizePip: non-linux
+    useUvRequirements: true
